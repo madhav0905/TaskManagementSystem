@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/api/v1/updateStatusForm}" th:object="${task}" method="post">
+    <p>
+        <label>Task Description</label>
+        <input readonly type="text" th:field="*{description}">
+    </p>
+    <input type="hidden" th:field="*{id}"  />
+    <p>
+        <label>Task Status</label>
+        <select th:field="*{status}" >
+            <option  th:each="option : ${T(com.TaskManagement.TaskMangement.Entity.TaskStatus).values()}" th:value="${option}" th:text="${option}" th:selected="${option == task.status}"></option>
+
+        </select>
+
+    </p>
+    <p>
+        <label>Priority</label>
+        <input readonly type="text"  th:field="*{priority}" th:value="*{priority}">
+    </p>
+
+<p>
+    <Label>Assigner</Label>
+    <input readonly type="text" th:value="${task.assigner.email}">
+    <input readonly type="hidden" th:field="*{assigner}" th:value="${task.assigner.email}">
+</p>
+    <p>
+
+        <input readonly type="hidden"  th:field="*{assignee}">
+    </p>
+    <p>
+        <button type="submit">Submit</button>
+    </p>
+</form>
+<a th:href="@{/logout}">LogOut</a>
+</body>
+</html>

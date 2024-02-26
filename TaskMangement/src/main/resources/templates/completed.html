@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks Completed</title>
+</head>
+<body>
+<table>
+
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Assigner</th>
+    </tr>
+
+    <tr th:each="temp : ${tasks}" class="table-row">
+        <td th:text="${temp.id}"></td>
+        <td th:text="${temp.description}"></td>
+        <td th:text="${temp.status}"></td>
+        <td th:text="${temp.priority}"></td>
+        <td th:text="${temp.assigner.email}"></td>
+    </tr>
+</table>
+</div>
+<a th:href="@{/logout}">LogOut</a>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks Pending</title>
+</head>
+<body>
+<div>
+    <a th:href="@{mycompletedtasks}">See ur Completed tasks</a>
+<table>
+
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Assigner</th>
+    </tr>
+
+    <tr th:each="temp : ${tasks}" class="table-row">
+        <td th:text="${temp.id}"></td>
+        <td th:text="${temp.description}"></td>
+        <td th:text="${temp.status}"></td>
+        <td th:text="${temp.priority}"></td>
+        <td th:text="${temp.assigner.email}"></td>
+        <td><a th:href="@{'updateStatus/'+${temp.id}}"> Update Status</a></td>
+    </tr>
+</table>
+
+<div sec:authorize="hasRole('MANAGER')">
+
+    <!-- Add a link to point to /systems ... this is for the admins -->
+
+    <p>
+        <a th:href="@{manager/createTask}">Create Task</a>
+        (Only for Manager peeps)
+    </p>
+    <p>
+        <a th:href="@{manager/assignedtasks}">Check Assigned Tasks </a>
+    </p>
+
+</div>
+
+</div>
+<a th:href="@{/logout}">LogOut</a>
+</body>
+</html>
